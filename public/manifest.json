@@ -1,0 +1,12 @@
+{
+  "name": "People — Profesionales de limpieza",
+  "short_name": "People",
+  "description": "Reserva profesionales de limpieza de confianza. Precios en COP.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "lang": "es-CO",
+  "scope": "/"
+}

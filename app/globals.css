@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fafbfc;
+  --fg: #111827;
+  --fg-muted: #6b7280;
+  --accent: #059669;
+  --border: #e5e7eb;
+}
+
+/* Web: smooth scroll and sensible selection */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba(5, 150, 105, 0.15);
+}
+
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-emerald-500;
+}
+
+/* Contenedor web estándar para contenido largo */
+@media (min-width: 1280px) {
+  .container-web {
+    max-width: 1280px;
+  }
+}
+
+/* Patrón sutil para hero (puntos) */
+.hero-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgb(209 250 229 / 0.4) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Carrusel infinito: se mueve a la izquierda en bucle */
+@keyframes testimonial-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-testimonial-scroll {
+  animation: testimonial-scroll 35s linear infinite;
+}
+
+/* Celebración al hacer clic en CTA contacto: emojis de limpieza tipo confeti */
+.celebration-particle {
+  left: 0;
+  top: 0;
+  animation: celebration-burst 1.15s ease-out forwards;
+  animation-delay: var(--delay, 0ms);
+  opacity: 0;
+  transform: translate(0, 0) scale(1);
+}
+@keyframes celebration-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translate(var(--x), var(--y)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(0.5);
+  }
+}
