@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { BroomLink } from '@/components/BroomLink';
 
 export default function QuienesSomosPage() {
@@ -40,8 +41,19 @@ export default function QuienesSomosPage() {
       <section className="border-b border-emerald-200/60 bg-gradient-to-b from-emerald-50/90 to-white px-4 py-10 sm:px-6 sm:py-12 lg:px-8" aria-label="Quiénes somos">
         <div className="mx-auto max-w-4xl">
           <div className="flex flex-col items-center gap-6 rounded-2xl border border-emerald-200/80 bg-white/90 px-6 py-8 shadow-[0_4px_24px_rgba(5,150,105,0.08)] sm:flex-row sm:gap-8 sm:px-8 sm:py-10">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-3xl shadow-inner" aria-hidden>
-              🌿
+            <div
+              className="flex shrink-0 items-center justify-center rounded-xl bg-white p-2 sm:justify-start"
+              aria-hidden
+            >
+              <Image
+                src="/images/people-service-logo.png"
+                alt=""
+                width={500}
+                height={500}
+                className="h-auto max-h-28 w-auto max-w-[200px] object-contain object-center sm:max-h-32 sm:max-w-[240px]"
+                sizes="(max-width: 640px) 200px, 240px"
+                priority
+              />
             </div>
             <div className="text-center sm:text-left">
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -51,7 +63,7 @@ export default function QuienesSomosPage() {
                 Cuidamos tu espacio con responsabilidad
               </p>
               <p className="mt-4 text-gray-600 leading-relaxed">
-                Estamos comprometidos con el cuidado del medio ambiente y la naturaleza. Nuestro símbolo —un árbol dentro de una gota de agua— representa la armonía entre el entorno, la naturaleza y las personas. Limpieza profesional con conciencia.
+                Estamos comprometidos con el cuidado del medio ambiente y la naturaleza. Nuestro símbolo —un árbol con raíces— refleja la conexión y armonía entre el entorno, la naturaleza y las personas. Brindamos limpieza profesional con conciencia.
               </p>
             </div>
           </div>

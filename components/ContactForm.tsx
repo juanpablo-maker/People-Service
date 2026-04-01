@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { createCelebrationParticles } from '@/lib/celebration';
 import type { CelebrationParticle } from '@/lib/celebration';
 import { CelebrationOverlay } from '@/components/CelebrationOverlay';
@@ -19,12 +19,12 @@ function buildWhatsAppMessage(data: {
   nombre: string;
   tipoEspacio: string;
   tamanoEspacio: string;
+  metrosAprox: string;
   direccion: string;
   email: string;
   telefono: string;
   fechaServicio: string;
   horaServicio: string;
-  detalles: string;
 }): string {
   const tipoLabel = ESPACIO_OPCIONES.find((o) => o.value === data.tipoEspacio)?.label ?? data.tipoEspacio;
   const tamanoLabel = getTamanoLabel(data.tipoEspacio, data.tamanoEspacio);
@@ -36,12 +36,10 @@ function buildWhatsAppMessage(data: {
     `• Dirección: ${data.direccion}`,
     `• Email: ${data.email}`,
     `• Teléfono: ${data.telefono}`,
+    `• Metros aprox.: ${data.metrosAprox} mts2`,
   ];
   if (data.fechaServicio || data.horaServicio) {
     lines.push(`• Fecha/hora preferida: ${[data.fechaServicio, data.horaServicio].filter(Boolean).join(' ')}`);
-  }
-  if (data.detalles) {
-    lines.push(`• Detalles: ${data.detalles}`);
   }
   return lines.join('\n');
 }
@@ -51,6 +49,8 @@ const ESPACIO_OPCIONES = [
   { value: 'apartamento', label: 'Apartamento' },
   { value: 'oficina', label: 'Oficina' },
   { value: 'local', label: 'Local comercial' },
+  { value: 'propiedad-horizontal', label: 'Propiedad Horizontal' },
+  { value: 'consultorio', label: 'Consultorio' },
   { value: 'otro', label: 'Otro' },
 ] as const;
 
@@ -69,6 +69,24 @@ const TAMANO_OFICINA = [
   { value: 'mas-30', label: 'Más de 30 personas' },
 ];
 
+/** Mañana: 7:00 a 9:00 a.m., cada 30 minutos */
+const SERVICE_TIME_OPTIONS = [
+  { value: '07:00', label: '7:00 a.m.' },
+  { value: '07:30', label: '7:30 a.m.' },
+  { value: '08:00', label: '8:00 a.m.' },
+  { value: '08:30', label: '8:30 a.m.' },
+  { value: '09:00', label: '9:00 a.m.' },
+] as const;
+
+function formatLocalDatePlusDays(daysFromToday: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() + daysFromToday);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 type EspacioTipo = (typeof ESPACIO_OPCIONES)[number]['value'];
 
 export function ContactForm() {
@@ -79,6 +97,11 @@ export function ContactForm() {
   const [particles, setParticles] = useState<CelebrationParticle[] | null>(null);
   const [espacioTipo, setEspacioTipo] = useState<EspacioTipo | ''>('');
   const [tamanoEspacio, setTamanoEspacio] = useState('');
+  const [minServiceDate, setMinServiceDate] = useState('');
+
+  useEffect(() => {
+    setMinServiceDate(formatLocalDatePlusDays(2));
+  }, []);
 
   const handleEspacioChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value as EspacioTipo | '';
@@ -97,12 +120,12 @@ export function ContactForm() {
       nombre: (formData.get('name') as string)?.trim() ?? '',
       tipoEspacio: espacioTipo || ((formData.get('espacioTipo') as string) ?? ''),
       tamanoEspacio: tamanoEspacio.trim(),
+      metrosAprox: (formData.get('metrosAprox') as string)?.trim() ?? '',
       direccion: (formData.get('address') as string)?.trim() ?? '',
       email: (formData.get('email') as string)?.trim() ?? '',
       telefono: (formData.get('phone') as string)?.trim() ?? '',
       fechaServicio: (formData.get('serviceDate') as string)?.trim() ?? '',
       horaServicio: (formData.get('serviceTime') as string)?.trim() ?? '',
-      detalles: (formData.get('details') as string)?.trim() ?? '',
     };
 
     console.log('ContactForm payload:', data);
@@ -168,7 +191,9 @@ export function ContactForm() {
     espacioTipo === 'casa' ||
     espacioTipo === 'apartamento' ||
     espacioTipo === 'oficina' ||
-    espacioTipo === 'local';
+    espacioTipo === 'local' ||
+    espacioTipo === 'propiedad-horizontal' ||
+    espacioTipo === 'consultorio';
 
   const isTamanoOtro = espacioTipo === 'otro';
   const showTamanoField = isTamanoSelect || isTamanoOtro;
@@ -269,6 +294,32 @@ export function ContactForm() {
       )}
 
       <div>
+        <label htmlFor="metrosAprox" className="block text-sm font-medium text-gray-700">
+          Metros aproximados del espacio <span className="text-emerald-600">*</span>
+        </label>
+        <div className="mt-1.5 flex min-h-[48px] items-stretch gap-2 rounded-xl border border-gray-200 bg-white focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20">
+          <input
+            id="metrosAprox"
+            type="number"
+            name="metrosAprox"
+            required
+            min={0}
+            step={1}
+            inputMode="numeric"
+            className="min-w-0 flex-1 rounded-l-xl border-0 bg-transparent px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0"
+            placeholder="Ej. 80"
+            aria-describedby="metrosAprox-suffix"
+          />
+          <span
+            id="metrosAprox-suffix"
+            className="flex shrink-0 items-center border-l border-gray-200 bg-gray-50 px-4 text-sm font-medium text-gray-600 rounded-r-xl"
+          >
+            mts2
+          </span>
+        </div>
+      </div>
+
+      <div>
         <label htmlFor="address" className="block text-sm font-medium text-gray-700">
           Dirección <span className="text-emerald-600">*</span>
         </label>
@@ -323,35 +374,26 @@ export function ContactForm() {
             id="serviceDate"
             type="date"
             name="serviceDate"
-            min={new Date().toISOString().slice(0, 10)}
-            className={inputClass}
+            min={minServiceDate || undefined}
+            disabled={!minServiceDate}
+            className={`${inputClass} disabled:cursor-wait disabled:bg-gray-50 disabled:text-gray-500`}
             aria-label="Fecha preferida"
+            aria-busy={!minServiceDate}
           />
-          <input
+          <select
             id="serviceTime"
-            type="time"
             name="serviceTime"
             defaultValue="08:00"
-            className={inputClass}
-            aria-label="Hora tentativa"
-          />
+            className={selectClass}
+            aria-label="Hora tentativa (mañana, cada 30 minutos)"
+          >
+            {SERVICE_TIME_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </select>
         </div>
-        <p className="mt-1 text-xs text-gray-500">
-          Elige fecha y hora tentativa. Te confirmaremos la disponibilidad.
-        </p>
-      </div>
-
-      <div>
-        <label htmlFor="details" className="block text-sm font-medium text-gray-700">
-          Describe en qué podemos ayudarte y el espacio o lugar que quieres que atendamos
-        </label>
-        <textarea
-          id="details"
-          name="details"
-          rows={3}
-          className={`${inputClass} min-h-[80px]`}
-          placeholder="Ej. Casa 80 m², 3 habitaciones; necesito limpieza semanal los lunes."
-        />
       </div>
 
       <button

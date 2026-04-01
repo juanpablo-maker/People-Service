@@ -2,15 +2,15 @@ import Link from 'next/link';
 import { SERVICE_TYPE_LABELS } from '@/lib/mockData';
 
 const BASE_SERVICES = [
-  { id: 'home', label: SERVICE_TYPE_LABELS.home, description: 'Limpieza habitual de tu hogar: superficies, baños, cocina y orden.' },
-  { id: 'office', label: SERVICE_TYPE_LABELS.office, description: 'Espacios de trabajo limpios y ordenados para que tu equipo rinda al máximo.' },
+  { id: 'home', label: SERVICE_TYPE_LABELS.home, description: 'Aseo general: pisos, cocina, baños y habitaciones. Se prioriza el aseo de acuerdo a tu necesidad' },
+  { id: 'office', label: SERVICE_TYPE_LABELS.office, description: 'Aseo a tu espacio de trabajo: pisos, mobiliario, polvo. Ordenados para que tu equipo esté cómodo' },
 ];
 
 const PREMIUM_SERVICES = [
   {
     id: 'deep',
     label: SERVICE_TYPE_LABELS.deep,
-    description: 'Limpieza a fondo: rincones, detrás de muebles, zonas que no se cubren en la limpieza habitual.',
+    description: 'Se limpia una zona especifica como: cocina, baños o pisos; para limpiar a detalle cajos, mobiliario, desinfectar y organizar el espacio',
     icon: '✨',
     accent: 'emerald',
   },

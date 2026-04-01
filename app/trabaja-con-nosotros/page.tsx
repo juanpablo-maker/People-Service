@@ -3,9 +3,7 @@ import Image from 'next/image';
 const FORM_OFFICE_URL = 'https://forms.office.com/r/qvPV2CtsYb';
 const RECEPTOR_EMAIL = 'thumano@peolesas.com';
 
-// Imagen de historia de éxito. Para usar tu propia foto, sustituye por /historia-aseo.jpg en public/
-const HISTORIA_IMAGEN =
-  'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80';
+const HISTORIA_IMAGEN = '/images/trabaja-con-nosotros-historia.png';
 
 const BENEFICIOS = [
   'Horarios que se adaptan a tu vida y compromisos.',
