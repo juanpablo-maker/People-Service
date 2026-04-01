@@ -37,6 +37,37 @@ const PREMIUM_SERVICES = [
   },
 ];
 
+const ESPECIALIZADOS_SERVICES = [
+  {
+    id: 'aseo_mensual',
+    label: 'Servicio de Aseo para Hogar u Oficina (Mensual)',
+    description:
+      'Contamos con personal confiable y capacitado para el cuidado de tu hogar u oficina. Puedes contratar el servicio de forma mensual, tiempo completo o medio tiempo. Incluye limpieza general, organización y mantenimiento, garantizando bienestar y cumplimiento de seguridad social.',
+    icon: '🧼',
+  },
+  {
+    id: 'todero',
+    label: 'Servicio de Todero (Mantenimiento General)',
+    description:
+      'Atendemos arreglos y mantenimientos básicos en tu hogar o propiedad horizontal. Incluye reparaciones menores, instalaciones, pintura básica y apoyo en distintas tareas para mantener tus espacios en óptimas condiciones.',
+    icon: '🔧',
+  },
+  {
+    id: 'jardineria',
+    label: 'Servicio de Jardinería',
+    description:
+      'Cuidado y mantenimiento de zonas verdes. Incluye corte de césped, poda, limpieza y mantenimiento general, asegurando espacios agradables, organizados y bien conservados.',
+    icon: '🌿',
+  },
+  {
+    id: 'cuidado',
+    label: 'Servicio de Cuidado de Niños y Adulto Mayor',
+    description:
+      'Personal confiable para el cuidado en el hogar. Brindamos acompañamiento, apoyo en actividades diarias y supervisión con responsabilidad y calidez humana, adaptándonos a tus necesidades.',
+    icon: '👶',
+  },
+];
+
 export default function ServiciosPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
@@ -109,6 +140,51 @@ export default function ServiciosPage() {
                   className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl ${
                     s.accent === 'amber' ? 'bg-amber-100' : 'bg-emerald-100'
                   }`}
+                  aria-hidden
+                >
+                  {s.icon}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-semibold text-gray-900">{s.label}</h3>
+                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">{s.description}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Servicios especializados y empresariales */}
+      <section className="mb-14">
+        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M3.75 21h16.5M4.5 3h15M5 3v18m14-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
+              />
+            </svg>
+          </span>
+          Servicios Especializados y Empresariales
+        </h2>
+        <p className="mt-1 text-sm text-gray-500 mb-6">
+          Soluciones más completas para necesidades continuas, mantenimiento y cuidado especializado.
+        </p>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {ESPECIALIZADOS_SERVICES.map((s) => (
+            <article
+              key={s.id}
+              className="group relative overflow-hidden rounded-2xl border border-emerald-200/80 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md hover:border-emerald-300 sm:p-7"
+            >
+              <div
+                className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-400 to-emerald-500"
+                aria-hidden
+              />
+              <div className="flex gap-4">
+                <span
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-2xl"
                   aria-hidden
                 >
                   {s.icon}
