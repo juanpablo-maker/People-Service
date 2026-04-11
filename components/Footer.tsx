@@ -22,7 +22,7 @@ export function Footer() {
               Trabaja con nosotros
             </Link>
             <Link href="/contacto" className="transition-colors hover:text-gray-900">
-              Contacto
+              Contáctanos
             </Link>
           </nav>
         </div>

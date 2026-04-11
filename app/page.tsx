@@ -61,7 +61,7 @@ export default function HomePage() {
                   href="/contacto"
                   className="w-full sm:w-auto rounded-xl border-2 border-emerald-600 bg-white px-5 py-3 text-center text-sm font-medium text-emerald-600 transition-all hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
                 >
-                  Que me contacten
+                  Solicita tu Servicio
                 </Link>
               </div>
               <p className="mt-2 text-sm text-gray-500">Precio claro antes de confirmar</p>

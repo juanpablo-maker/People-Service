@@ -20,7 +20,7 @@ export function StickyCtaBar() {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 border-t border-emerald-200/80 bg-white/95 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] backdrop-blur-sm transition-all duration-300 ${
+      className={`fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200/90 bg-white/95 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] backdrop-blur-sm transition-all duration-300 ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
       role="banner"
